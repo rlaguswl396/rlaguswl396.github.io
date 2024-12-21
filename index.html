@@ -67,7 +67,7 @@
         </tr>
     </table>
     <div id="add">
-        <form action="#">
+        <form id="todoForm">
             <label for="type">할 일 유형</label>
             <select name="todo_type" id="todo_type">
               <option value="1">긴급하고 중요함</option>
@@ -78,6 +78,7 @@
             <input type="submit" value="추가" />
         </form>
         <textarea name="할 일 입력" id="add_todo" placeholder="할 일을 입력하세요."></textarea>
+        <button type="button" id="addButton">추가</button>
     </div>
     <br><br><br>
     <div id="done">
@@ -87,5 +88,35 @@
             <li>빨래</li>
         </ul>
     </div>
+    <script>
+        document.getElementById('addButton').addEventListener('click', function() {
+            const todoText = document.getElementById('add_todo').value;
+            const todoType = document.getElementById('todo_type').value;
+
+            if (todoText.trim() === '' {
+                alert('할 일을 입력하세요.');
+                return
+            }
+
+            const targetCell = document.getElementById(todoType);
+            const todoItem = document.createElement('div');
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    const doneList = document.getElementById('doneList');
+                    const doneItem = document.createElement('li');
+                    doneItem.textContent = todoText;
+                    doneList.appendChild(doneItem);
+                    targetCell.removeChild(todoItem);
+                }
+            });
+            todoItem.appendChild(checkbox);
+            todoItem.appendChild(document.createTextNode('${todoText}'));
+            targetCell.appendChild(todoItem);
+            document.getElementById('add_todo').value = '';
+        });
+    </script>
 </body>
 </html>
